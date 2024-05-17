@@ -6,8 +6,8 @@ export default function Navbar() {
     <NavLink> <li> Home </li></NavLink>
     <NavLink> <li> CONTACT US </li></NavLink>
     <NavLink> <li> DASHBOARD </li></NavLink>
-    <NavLink> <li> OUR MENU </li></NavLink>
-    <NavLink className="flex items-center justify-center"> <li> OUR SHOP</li>
+    <NavLink to='/menu'> <li> OUR MENU </li></NavLink>
+    <NavLink to='/order' className="flex items-center justify-center"> <li>ORDER FOOD</li>
     <img className="w-8 h-6 text-center" src={menuImg} alt="menu icon" /> </NavLink>
     <NavLink> <li> </li></NavLink>
     <NavLink> <li>  </li></NavLink>

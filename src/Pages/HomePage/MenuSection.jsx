@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react"
+
 import MenuItem from "../../Shared/MenuItem"
+import UseMenu from "../../Hooks/UseMenu"
 
 export default function MenuSection() {
-    const [menu,setMenu] = useState([])
-    useEffect(()=>{
-        fetch('/public/Menu.json')
-        .then(res=>res.json())
-        .then(data=>{
-            const popularItem = data.filter(item=>item.category === "popular")
-            setMenu(popularItem)})
-    },[])
+const [menu] = UseMenu()
+const popular = menu.filter(item=>item.category === 'popular')
   return (
     <div className="mt-20">
             <div>
@@ -18,9 +13,12 @@ export default function MenuSection() {
         </div>
         <div className="grid lg:grid-cols-2 gap-6">
             {
-                menu.map(item=><MenuItem key={item._id} item={item}></MenuItem>)
+                popular.map(item=><MenuItem key={item._id} item={item}></MenuItem>)
             }
         </div>
+        <div className="flex items-center justify-center mt-6">
+      <button className="btn btn-outline border-b-4">VIEW FULL MENU</button>
+      </div>
     </div>
   )
 }
