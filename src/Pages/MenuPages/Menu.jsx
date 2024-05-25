@@ -8,9 +8,9 @@ import MenuCategory from '../../MenuCategory';
 export default function Menu() {
     const [menu] = UseMenu()
     const offered = menu.filter(item=> item.category === 'offered')
-    const desserts = menu.filter(item=> item.category === 'dessert')
+    const dessert = menu.filter(item=> item.category === 'dessert')
     const pizza = menu.filter(item=> item.category === 'pizza')
-    const soups = menu.filter(item=> item.category === 'soup')
+    const soup = menu.filter(item=> item.category === 'soup')
     const salad = menu.filter(item=> item.category === 'salad')
   return (
     <div>
@@ -33,26 +33,26 @@ export default function Menu() {
       <MenuCategory items={offered}></MenuCategory>
 
       <MenuCategory
-       items={desserts}
-       title="Dessert"
+       items={dessert}
+       title="dessert"
        img={dessertImg}
        description='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
        > </MenuCategory>
       <MenuCategory
        items={pizza}
-       title="PIZZA"
+       title="pizza"
        img={dessertImg}
        description='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
        > </MenuCategory>
       <MenuCategory
        items={salad}
-       title="salads"
+       title="salad"
        img={dessertImg}
        description='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
        > </MenuCategory>
              <MenuCategory
-       items={soups}
-       title="soups"
+       items={soup}
+       title="soup"
        img={dessertImg}
        description='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
        > </MenuCategory>
