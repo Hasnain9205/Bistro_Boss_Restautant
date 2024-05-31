@@ -1,17 +1,16 @@
-import { Helmet } from "react-helmet-async";
-import UseCarts from "../Hooks/UseCarts"
-import { RiDeleteBinLine } from "react-icons/ri";
 import Swal from "sweetalert2";
-import UseAxios from "../Hooks/UseAxios";
+import UseAxios from "../../Hooks/UseAxios";
+import update from '../../../src/assets/icon/edit 1.png'
+import { Helmet } from "react-helmet-async";
+import { RiDeleteBinLine } from "react-icons/ri";
+import UseMenu from "../../Hooks/UseMenu";
 import { Link } from "react-router-dom";
 
-export default function Cart() {
+export default function manageItems() {
+    const [menu, ,refetch] = UseMenu();
   const axiosSecure = UseAxios()
-    const [cart , refetch] = UseCarts();
-    console.log(cart)
-    const totalPrices = cart.reduce((total,item)=>total + item.price,0)
 
-    const handleDelete =  id => {
+    const handleDeleteItem = (item) => {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -20,20 +19,19 @@ export default function Cart() {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!"
-      })
-      .then((result) => {
+      }).then( async (result) => {
         if (result.isConfirmed) {
-          axiosSecure.delete(`/carts/${id}`)
-          .then((res) => {
-            if(res.data.deletedCount > 0){
-              refetch()
+            const res = await axiosSecure.delete(`/menu/${item._id}`)
+          console.log(res.data)
+          if(res.data.deletedCount > 0){
+            refetch();
               Swal.fire({
-                title: "Deleted!",
+                title: `${item.name} has been Deleted!`,
                 text: "Your file has been deleted.",
                 icon: "success"
               });
-            }
-          })
+        }
+
         }
       });
     }
@@ -41,22 +39,16 @@ export default function Cart() {
 
     <div className="mt-6">
       <div>
-        <h1 className='text-center text-xl font-normal text-[#D99904] border-b-4 pb-4 w-96 mx-auto mb-2'>---MY CART---</h1>
-        <h1 className=' text-2xl font-normal border-b-4 pb-2 mb-12 text-center w-96 mx-auto'>WANNA ADD MORE?</h1>
+        <h1 className='text-center text-xl font-normal text-[#D99904] border-b-4 pb-4 w-96 mx-auto mb-2'>---Hurry Up!---</h1>
+        <h1 className=' text-2xl font-normal border-b-4 pb-2 mb-12 text-center w-96 mx-auto'>MANAGE ALL ITEMS</h1>
     </div>
 
     <div className=" bg-gray-100 mx-32 px-8 space-y-12  mt-6">
       <Helmet>
-        <title>Bistro Boss | cart</title>
+        <title>Bistro Boss | Manage Items</title>
       </Helmet>
-      <div className="flex justify-around items-center pt-6">
-        <h1 className="text-xl font-bold">TOTAL ORDERS: {cart.length}</h1>
-        <h1 className="text-xl font-bold">TOTAL PRICES: ${totalPrices}</h1>
-        {
-          cart.length ? <Link to='/dashboard/payment'><button className="btn px-6 rounded-md bg-[#D1A054] font-bold text-white">PAY</button></Link>
-          :
-          <button disabled className="btn px-6 rounded-md bg-[#D1A054] font-bold text-white">PAY</button>
-        }
+      <div className="pt-4">
+        <h1 className="text-xl font-bold">TOTAL ITEMS: {menu.length}</h1>
       </div>
       <div className="overflow-x-auto">
   <table className="table">
@@ -70,12 +62,13 @@ export default function Cart() {
         <th>ITEM NAME</th>
         <th>PRICE</th>
         <th>ACTION</th>
+        <th>ACTION</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       {
-        cart.map((item,index)=><tr key={item._id}>
+        menu.map((item,index)=><tr key={item._id}>
           <th>
             {index + 1}
           </th>
@@ -93,8 +86,14 @@ export default function Cart() {
           </td>
           <td>${item.price}</td>
           <th>
+            <Link to={`/dashboard/update/${item._id}`}>
             <button
-            onClick={() => handleDelete(item._id)}
+             className="btn btn-ghost btn-xs bg-red-500"><img src={update} alt="" className="w-4" /></button>
+            </Link>
+          </th>
+          <th>
+            <button
+            onClick={() => handleDeleteItem(item)}
              className="btn btn-ghost btn-xs bg-red-500"><RiDeleteBinLine /></button>
           </th>
         </tr>)

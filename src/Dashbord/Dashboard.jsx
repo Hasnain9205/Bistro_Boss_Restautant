@@ -13,9 +13,11 @@ import { TfiMenuAlt } from "react-icons/tfi";
 
 import logo from '../../src/assets/icon/cutlery 1.png';
 import UseAdmin from "../Hooks/UseAdmin";
+import UseCarts from "../Hooks/UseCarts";
 
 export default function DashBoard() {
     const [isAdmin] = UseAdmin();
+    const [carts] = UseCarts()
   return (
     <div className="flex">
       <div className="w-64 min-h-full bg-[#D1A054] p-10 ">
@@ -31,12 +33,12 @@ export default function DashBoard() {
             </li>
             <li className="flex items-center gap-1">
                <img className="w-4" src={logo} alt="" />
-               <NavLink to='/dashboard/reservation'>
+               <NavLink to='/dashboard/addItems'>
                 ADD ITEMS</NavLink>
             </li>
             <li className="flex items-center gap-1">
                 <TfiMenuAlt />
-                <NavLink to='/dashboard/payment'>MANAGE ITEMS</NavLink>
+                <NavLink to='/dashboard/manageItems'>MANAGE ITEMS</NavLink>
             </li>
             <li className=" flex items-center gap-1">
                 <FaBook />
@@ -60,11 +62,11 @@ export default function DashBoard() {
             </li>
             <li className="flex items-center gap-1">
                 <MdOutlinePayment />
-                <NavLink to='/dashboard/payment'>PAYMENT HISTORY</NavLink>
+                <NavLink to='/dashboard/paymentHistory'>PAYMENT HISTORY</NavLink>
             </li>
             <li className=" flex items-center gap-1">
                 <FaCartShopping />
-                <NavLink to='/dashboard/myCart'>MY Cart</NavLink>
+                <NavLink to='/dashboard/myCart'>MY Cart: ( {carts.length} )</NavLink>
             </li>
             <li className="flex items-center gap-1">
                 <MdOutlinePreview />

@@ -5,14 +5,13 @@ import { Link, useNavigate } from 'react-router-dom'
 // import { AuthContex } from '../../Providers/AuthProvider'
 import { useForm } from "react-hook-form"
 import { Helmet } from 'react-helmet-async'
-import { useContext } from 'react'
-import { AuthContex } from '../../Providers/AuthProvider'
 import Swal from 'sweetalert2'
 import UseAxiosPublic from '../../Hooks/UseAxiosPublic'
 import SocialLogIn from '../../Components/SocialLogin/SocialLogIn'
+import UseAuth from '../../Hooks/UseAuth'
 
 export default function SignUp() {
-  const {createUser,updateUserProfile} = useContext(AuthContex)
+  const {createUser,updateUserProfile} = UseAuth()
   const Navigate = useNavigate()
   const axiosPublic = UseAxiosPublic()
 
@@ -25,7 +24,7 @@ export default function SignUp() {
 
       const onSubmit = (data) =>{
         console.log(data)
-        createUser(data.email,data.password)
+        createUser(data.email, data.password)
         .then(result =>{
           const loggedUser = result.user;
           console.log(loggedUser)

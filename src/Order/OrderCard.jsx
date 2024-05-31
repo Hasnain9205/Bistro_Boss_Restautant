@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import UseAuth from "../Hooks/UseAuth"
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import UseAxios from "../Hooks/UseAxios";
 import UseCarts from "../Hooks/UseCarts";
